@@ -1,0 +1,35 @@
+<section class="projects float-right col-md-9">
+    <form class="add-projects">
+        <div>
+            <input type="text" class="form-control project-inputs" id="project-name-input" placeholder="input project name..." name="title">
+            <input type="text" class="form-control project-inputs" id="project-description-input" placeholder="input project description...">
+            <div class="form-group">
+                 <div class="col-md-9 col-md-offset-3">
+                 <div id="messages"></div>
+            </div>
+            </div>
+                <button id="project-submit" type="submit" class="btn btn-secondary">+</button>
+        </div>
+    </form>
+
+    {{#unless True}}
+    <div class="all-projects">
+        <h4 class="project-headings">Current Projects</h4>
+        <ul>
+            {{#each projects}} {{#unless completed}} {{> projects/project-block completed=false}} {{/unless}} {{/each}}
+        </ul>
+    </div>
+    {{/unless}}
+    <br> {{#unless True}}
+    <div class="all-projects-completed">
+        <span>
+            <h4 class="project-headings d-inline">Completed Projects</h4>
+           
+        </span>
+        <ul>
+            {{#each projects}} {{#if completed}} {{> projects/project-block completed=true}} {{/if}} {{/each}}
+        </ul>
+    </div>
+    {{/unless}}
+</section>
+       
