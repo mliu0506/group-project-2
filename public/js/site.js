@@ -315,13 +315,13 @@ $(document).ready(function() {
     var Status = $(this).data("status");
     //Lets user know task button has recognized the button click
     console.log("Task clicked: " + id);
-    if (Status == "In progress") {
+    if (Status == "In Progress") {
       var changeStatus = {
-        status: "overdue"
+        status: "Overdue"
       };
     } else {
       var changeStatus = {
-        status: "In progress"
+        status: "In Progress"
       };
     }
     //puts url in an object to send as a request
