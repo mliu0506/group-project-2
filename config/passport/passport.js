@@ -62,7 +62,8 @@ module.exports = function(passport, user) {
               password: userPassword,
               firstName: toCaps(req.body.firstname),
               lastName: toCaps(req.body.lastname),
-              userName: req.body.username
+              userName: req.body.username,
+              image: req.body.image
             };
 
             //pass the entries into a create Sequelize fuction

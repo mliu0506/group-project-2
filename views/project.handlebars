@@ -1,20 +1,12 @@
 <section class="projects float-right col-md-9">
-    <form class="add-projects">
-        <div>
-            <input type="text" class="form-control project-inputs" id="project-name-input" placeholder="input project name..." name="title">
-            <input type="text" class="form-control project-inputs" id="project-description-input" placeholder="input project description...">
-            <div class="form-group">
-                 <div class="col-md-9 col-md-offset-3">
-                 <div id="messages"></div>
-            </div>
-            </div>
-                <button id="project-submit" type="submit" class="btn btn-secondary">+</button>
-        </div>
-    </form>
 
     {{#unless True}}
     <div class="all-projects">
-        <h4 class="project-headings">Current Projects</h4>
+        <h4 class="project-headings">Current Projects
+         <span class="add-project float-right">
+                <i class="fas fa-plus" data-toggle="modal" data-target="#addprojectModal"></i>
+        </span>
+        </h4>
         <ul>
             {{#each projects}} {{#unless completed}} {{> projects/project-block completed=false}} {{/unless}} {{/each}}
         </ul>
@@ -31,5 +23,45 @@
         </ul>
     </div>
     {{/unless}}
+
+
+ <!-- Add Task Modal  -->
+    <div class="modal fade" id="addprojectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="add-project-title">Add Project</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-project" class="needs-validation" name="addproject" method="POST" action="/api/projects" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="projectname">Project Name</label>
+                                    <input type="text" name="projectname" class="form-control" id="project-name" placeholder="Project Name" required>
+                                    <div class="valid-feedback">
+                                    ✓ Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="projectdescription">Project Description</label>
+                                    <input type="text" name="projectdescription" class="form-control" id="project-desc" placeholder="Project Description" required>
+                                    <div class="valid-feedback">
+                                    ✓ Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary bg-primary" type="submit">Submit form</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
        
