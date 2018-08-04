@@ -15,7 +15,7 @@ body{
   background-color: white; 
   height: fit-content;
   height: 100%;
-  background: url('../im/background.jpg') repeat fixed center;
+
 }
 .outer-wrapper{
   height: 100%;
@@ -40,6 +40,8 @@ ul{
 .modal-title{
   color: black;
 }
+
+
 /* NavBar */
 .bg-primary{
   background-color: white !important;
@@ -211,18 +213,8 @@ nav{
 .project-input{
   width: 200px;
 }
-#project-submit{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  border-radius: 0 4px 4px 0;
-  height: 76px;
-  font-family: 'Ubuntu', sans-serif;  
-  background-color: #a0bd3e;
-  border: none;
-  width: 15%;
-  font-size: 30px;
-}
+
+
 
 .all-projects{
   position: relative;
@@ -270,6 +262,25 @@ nav{
   color: grey;
   font-size: 12px;
 }
+
+/* Project - Task & Comment */
+
+.add-task-title,
+.add-comment-title{
+  font-weight: bold;
+  font-size: 12px;
+}
+.add-task,
+.add-comment{
+  color: grey;
+  font-size: 12px;
+}
+
+.task-description,
+.comment-description{
+  color: grey;
+  font-size: 12px;
+}
 #del-completed-projects{
   position: relative;
   bottom: 10px;
@@ -285,13 +296,44 @@ nav{
   margin-right: 5px;
 }
 
+.fa-plus{
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.fa-clock{
+  font-size: 16px;
+  margin-right: 5px;
+}
+.small-plus{
+font-size: 12px;
+margin-right: 5px;
+margin-top:5px;
+}
+
+.fa-clock,
 .fa-trash-alt{
+  position: relative;
+  top: 6px;
+  color: grey;
+}
+
+.fa-clock:hover,
+.fa-trash-alt:hover{
+  color:red;
+}
+
+.fa-comment-alt{
   position: relative;
   top: 4px;
   color: grey;
 }
-.fa-trash-alt:hover{
-  color:red;
+
+.fa-plus
+{
+  position: relative;
+  top: 0px;
+  color: grey;
 }
 
 /* Search */

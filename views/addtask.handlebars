@@ -1,57 +1,44 @@
-<li>
-    <div class="all-projects-list">
-        <span>
-            {{#if completed}}
-            <i class="far fa-check-circle"> </i>{{else}}
-            <i class="far fa-circle incomplete-circle" data-id="{{this.dataValues.id}}"></i>{{/if}}
-            <span class="project-title">{{this.dataValues.projectName}} - {{this.dataValues.projectDescription}}</span>
-            <i data-id="{{this.dataValues.id}}" class="fas fa-trash-alt project-trash float-right"></i>
-            <span class="project-description float-right">
-                <i class="far fa-comment-alt" data-toggle="modal" data-target="#descriptionModal-{{this.dataValues.id}}"></i>
-            </span>
-            <span class="add-project-task float-right" data-id="{{this.dataValues.id}}">
-                <i class="fas fa-plus small-plus" data-toggle="modal" data-target="#addtaskModal-{{this.dataValues.id}}"></i>
-            </span>
+<section class="projects float-right col-md-9">
 
+
+    {{#unless True}}
+    <div class="all-projects">
+        <h4 class="project-headings">Current Tasks
+            <span class="add-task float-right">
+                <i class="fas fa-plus" data-toggle="modal" data-target="#addtaskModal"></i>
+            </span>
+        </h4>
+
+        <ul>
+            {{#each tasks}} {{#unless completed}} {{> addtask/addtask-block completed=false}} {{/unless}} {{/each}}
+        </ul>
+    </div>
+    {{/unless}}
+    <br> {{#unless True}}
+    <div class="all-projects-completed">
+        <span>
+            <h4 class="project-headings d-inline">Completed Tasks</h4>
+           
         </span>
+        <ul>
+            {{#each tasks}} {{#if completed}} {{> addtask/addtask-block completed=true}} {{/if}} {{/each}}
+        </ul>
     </div>
-    <!-- Description Modal -->
-    <div class="modal fade" id="descriptionModal-{{this.dataValues.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    {{/unless}}
+
+ <!-- Add Task Modal  -->
+    <div class="modal fade" id="addtaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="project-description-title"> {{#if this.dataValues.completed}}
-                     <i class="far fa-check-circle"> </i> {{else}}
-            <i class="far fa-circle"></i> {{/if}} {{this.dataValues.projectName}}</h2>
+                    <h2 class="modal-title" id="add-task-title">Add Task</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="project-description" name="description">
-                        <div class="form-row">
-                            <p>{{this.dataValues.projectDescription}}</p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Add Task Modal  -->
-    <div class="modal fade" id="addtaskModal-{{this.dataValues.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="add-task-title">Add Tasks - {{this.dataValues.projectName}}</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="add-project-task" class="needs-validation" name="addtask" method="POST" action="/api/tasks" novalidate>
+                    <form id="add-task" class="needs-validation" name="addtask" method="POST" action="/api/tasks" novalidate>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="taskname">Task Name</label>
@@ -104,7 +91,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="userID">User</label>
-                                    <select name="userName" class="form-control" id="userID-task-{{this.dataValues.id}}" placeholder="userID" required>
+                                    <select name="userName" class="form-control" id="userName-task" placeholder="userName" required>
 
                                     </select>
                                     <div class="valid-feedback">
@@ -113,12 +100,24 @@
                                 </div>
                             
                             </div>
-                            <input type="text" name="projectName" class="form-control" id="projectID-task" value="{{this.dataValues.projectName}}" hidden required>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="projectID">Project</label>
+                                    <select name="projectName" class="form-control" id="projectName-task" placeholder="project" required >
+
+                                    </select>
+                                    <div class="valid-feedback">
+                                    ✓ Looks good!
+                                    </div>
+                                </div>
+                            </div>
+
                             <button class="btn btn-primary bg-primary" type="submit">Submit form</button>
                         </form>
                 </div>
             </div>
         </div>
-    </div>        
-            
-</li>
+    </div>
+</section>
+
+       
