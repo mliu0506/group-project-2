@@ -8,17 +8,14 @@
   },
   "test": {
     "username": "root",
-    "password": "root",
-    "database": "ontrack_db",
+    "password": null,
+    "database": "testdb",
     "host": "localhost",
     "dialect": "mysql",
-    "port": 3306
+    "logging": false
   },
   "production": {
     "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
-  },
-  "secret": {
-    "use_secret": "keyboard cat"
   }
 }
