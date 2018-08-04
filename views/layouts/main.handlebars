@@ -1,15 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <title>Home Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On Track</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+    crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="/style/styles.css">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="/js/site.js"></script>
+  <script src="/js/search.js"></script>
 </head>
 
 <body>
-  {{{body}}}
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/project">
+      <img src="/images/ontrack-logo.png" width="100px">
+    </a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item full-search">
+        <i class="fas fa-search"></i>
+        <form class="search-bar-btn">
+          <input class="form-control mr-sm-2" id="search-input-nav" type="search" placeholder="Input User Name..." aria-label="Search">
+          <button class="searchButton search-btn-nav" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>
+        </form>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <i id="search-m-btn" class="fas fa-search" data-toggle="modal" data-target="#searchModal"></i>
+
+      <!-- Mobile search Modal -->
+      <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-black" id="modal-title">Searching Better Every Day...</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="profile-description" name="description">
+                <div class="form-row">
+                  <form class="search-bar-btn">
+                    <input class="form-control mr-sm-2" id="search-input-m" type="search" placeholder="" aria-label="Search">
+                    <button class="searchButton search-btn-m" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>
+                  </form>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      {{!-- End of Mobile Search Modal --}}
+      <li class="nav-item dropdown profile-drop">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <img id="nav-profile-image" src="{{user.image}}">
+          <span id="drop-down-name">{{user.firstName}} {{user.lastName}}</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/task">My Task</a>
+          <a class="dropdown-item" href="/inbox">My Inbox</a>
+          <a class="dropdown-item" href="/project">Add Projects</a>
+          <a class="dropdown-item" href="/addtask">Add Tasks</a>
+          <a class="dropdown-item" href="/addcomment">Add Comments</a>
+          <a data-toggle="modal" data-target="#imageModal" class="dropdown-item" href=''>Profile Picture</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/logout">Log Out</a>
+        </div>
+      </li>
+    </form>
+  </nav>
+  <div class="outer-wrapper">
+    <div class="container">
+       <section class="sidebar float-left col-sm-3">
+        <div class="img-wrap">
+          <div style="height:100%;">
+            <img class="profile-pic" src="{{user.image}}" data-toggle="modal" data-target="#imageModal">
+            <i class="far fa-images"></i>
+          </div>
+        </div>
+        <h4>{{user.userName}}</h4>
+        <br>
+        <ul class="sidebar-list">
+          <li>
+            <a href="/dashoard">
+              <i class="far fa-clipboard"></i> Dashboard</a>
+          </li>
+
+          <li></li>
+          <li></li>
+        </ul>
+      </section>
+      {{{ body }}}
+    </div>
+  </div>
+  <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="profile-description-title">Change Your Profile Picture</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="profile-description" name="description">
+            <div class="form-row">
+              <input type="text" class="form-control" id="profile-pic-change" placeholder="Input new profile picture link...">
+              <button id="profile-pic-change-submit" type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
 </body>
 
 </html>
