@@ -1,23 +1,14 @@
 <section class="projects float-right col-md-9">
+    {{#unless True}}
     <div class="all-projects">
-        <h3 class="text-white"> Search Results</h3>
-        <br>
+        <h4 class="project-headings">Search Result
+         
+        </h4>
         <ul>
-            {{#each tasks}}
-            <div class = "row">
-                <span class="project-title">
-                <img id="nav-profile-image" src="{{image}}">{{userName}} 
-                {{#if completed}}
-                    <i class="far fa-check-circle"> </i>
-                {{else}}
-                    <i class="far fa-circle incomplete-task-circle" data-id="{{id}}"></i>
-                {{/if}}
-                
-                {{projectName}} - {{taskName}} - Due: {{endDate}}
-                     
-                </span>
-            </div>
-            {{/each}}
+             {{#each tasks}} {{> search/search-block}} {{/each}}
+
         </ul>
     </div>
+    {{/unless}}
+
 </section>
