@@ -12,6 +12,22 @@ module.exports = function(app) {
       res.json(dbUser);
     });
   });
+  //Get teh Dashboard information - category
+  app.get("/api/category", function(req, res) {
+    //sequelize function to findall of project name in database where conditions are met
+    db.Task.findAll({
+      group: ["category"],
+      attributes: ["category", "projectName", "completed", "status"],
+      where: { projectName: "Project 2" }
+    }).then(function(dbTask) {
+      //console.log for test
+      console.log(dbTask);
+      //Object to send to the json file
+      res.json(dbTask);
+    });
+  });
+
+  //Get the projects name information (look up)
   app.get("/api/projects", function(req, res) {
     //sequelize function to findall of project name in database where conditions are met
     db.Project.findAll({
@@ -26,6 +42,7 @@ module.exports = function(app) {
       res.json(dbProject);
     });
   });
+  //Get the task name information (look up)
   app.get("/api/tasks", function(req, res) {
     //sequelize function to findall of task name in database where conditions are met
     db.Task.findAll({

@@ -46,6 +46,19 @@ module.exports = function(app) {
   });
 
   //This handles the get request for the current users project page
+  app.get("/dashboard", isLoggedIn, function(req, res) {
+    var hbObject = {
+      //has all matching goals from search
+      //current session's user
+      user: req.user
+    };
+    //console.log for test
+    console.log("dasboard");
+    //renders handlebars project page to file to handlebars to generate projects and user info
+    res.render("dashboard", hbObject);
+  });
+
+  //This handles the get request for the current users project page
   app.get("/project", isLoggedIn, function(req, res) {
     //sequelize function to findall of project in database where conditions are met
     db.Project.findAll({}).then(function(dbProject) {
