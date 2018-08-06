@@ -63,6 +63,23 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/task", isLoggedIn, function(req, res) {
+    //sequelize function to findall of project in database where conditions are met
+    db.Project.findAll({}).then(function(dbProject) {
+      //Object to send to the handlebars file
+      var hbObject = {
+        //has all matching goals from search
+        projects: dbProject,
+        //current session's user
+        user: req.user
+      };
+      //console.log for test
+      console.log(hbObject.projects);
+      //renders handlebars project page and gives hbObject to file to handlebars to generate projects and user info
+      res.render("tasks", hbObject);
+    });
+  });
+
   //this handles the get requests for searches, the :name is provided on the client side search.js file
   app.get("/search/:name", isLoggedIn, (req, res) => {
      console.log("recieved search request")
