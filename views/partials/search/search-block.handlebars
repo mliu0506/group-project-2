@@ -1,5 +1,14 @@
 <li>
     <div class="search-list">
-        <div>{{users.userName}}</div>
+        <span class="project-title">
+            <img id="nav-profile-image" src="{{this.dataValues.image}}">{{this.dataValues.userName}} 
+            {{#if this.dataValues.completed}}
+                <i class="far fa-check-circle"> </i>
+            {{else}}
+                <i class="far fa-circle incomplete-task-circle" data-id="{{this.dataValues.id}}"></i>
+            {{/if}}
+                
+            {{this.dataValues.projectName}} - {{this.dataValues.taskName}} - Due: {{this.dataValues.endDate}}
+        </span>
     </div>
 </li>

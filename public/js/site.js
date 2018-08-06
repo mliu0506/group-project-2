@@ -25,6 +25,166 @@
 })();
 //executes these event listeners when the page is loaded
 $(document).ready(function() {
+  //Add Task
+  $(".add-task").on("click", function(event) {
+    event.preventDefault();
+    $("#userName-task")
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/users", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get user data");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.userName +
+            "," +
+            item.image +
+            "'>" +
+            item.userName +
+            "</option>";
+          console.log(items);
+          $("#userName-task").append(items);
+        });
+      }
+    );
+    $("#projectName-task")
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/projects", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get project list");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.projectName +
+            "'>" +
+            item.projectName +
+            "</option>";
+          console.log(items);
+          $("#projectName-task").append(items);
+        });
+      }
+    );
+  });
+  //Add Task from Project Screen
+  $(".add-project-task").on("click", function(event) {
+    event.preventDefault();
+    var id = $(this).data("id");
+    $("#userID-task-" + id)
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/users", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get user data");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.userName +
+            "," +
+            item.image +
+            "'>" +
+            item.userName +
+            "</option>";
+          console.log(items);
+          $("#userID-task-" + id).append(items);
+        });
+      }
+    );
+  });
+  //Add Comments
+  $(".add-comment").on("click", function(event) {
+    event.preventDefault();
+    $("#to-comment")
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/users", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get user data");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.userName +
+            "," +
+            item.image +
+            "'>" +
+            item.userName +
+            "</option>";
+          console.log(items);
+          $("#to-comment").append(items);
+        });
+      }
+    );
+    $("#taskName-comment")
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/tasks", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get task list");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.taskName +
+            "'>" +
+            item.taskName +
+            "</option>";
+          console.log(items);
+          $("#taskName-comment").append(items);
+        });
+      }
+    );
+  });
+
+  //Add Comments from task screen
+  $(".add-task-comment").on("click", function(event) {
+    event.preventDefault();
+    var id = $(this).data("id");
+    $("#to-comment-" + id)
+      .find("option")
+      .remove()
+      .end();
+    $.ajax("/api/users", {
+      type: "GET"
+    }).then(
+      //get user data
+      function(data) {
+        console.log("get user data");
+        $.each(data, function(index, item) {
+          var items =
+            "<option value='" +
+            item.userName +
+            "," +
+            item.image +
+            "'>" +
+            item.userName +
+            "</option>";
+          console.log(items);
+          $("#to-comment-" + id).append(items);
+        });
+      }
+    );
+  });
+
   $("#sign-up-btn").on("click", function(event) {
     event.preventDefault();
   });
@@ -65,6 +225,7 @@ $(document).ready(function() {
       }
     );
   });
+
   //This PUT request is to change the projects from incomplete to completed
   $(".incomplete-circle").on("click", function(event) {
     event.preventDefault();
@@ -84,6 +245,45 @@ $(document).ready(function() {
       location.reload();
     });
   });
+  //This PUT request is to change the tasks from incomplete to completed
+  $(".incomplete-task-circle").on("click", function(event) {
+    event.preventDefault();
+    //gets the id of the project in the database
+    var id = $(this).data("id");
+    //Lets user know project button has recognized the button click
+    console.log("Task clicked: " + id);
+    //toggleBool is the object we send with the PUT request
+    var toggleBool = {
+      completed: true
+    };
+    //The actual ajax call, includes the previous id as part the the url
+    $.ajax("/api/tasks/" + id, {
+      type: "PUT",
+      data: toggleBool
+    }).then(function() {
+      location.reload();
+    });
+  });
+  //This PUT request is to change the comments from incomplete to completed
+  $(".incomplete-comment-circle").on("click", function(event) {
+    event.preventDefault();
+    //gets the id of the project in the database
+    var id = $(this).data("id");
+    //Lets user know project button has recognized the button click
+    console.log("comment clicked: " + id);
+    //toggleBool is the object we send with the PUT request
+    var toggleBool = {
+      completed: true
+    };
+    //The actual ajax call, includes the previous id as part the the url
+    $.ajax("/api/comments/" + id, {
+      type: "PUT",
+      data: toggleBool
+    }).then(function() {
+      location.reload();
+    });
+  });
+
   //This button click is in charge of updating the img src url for the users profile picture
   $("#profile-pic-change-submit").on("click", function(event) {
     event.preventDefault();
@@ -107,6 +307,33 @@ $(document).ready(function() {
       });
     }
   });
+  //This button click is in charge of updating the status for the task
+  $(".overdue-task").on("click", function(event) {
+    event.preventDefault();
+    //gets the id of the task in the database
+    var id = $(this).data("id");
+    var Status = $(this).data("status");
+    //Lets user know task button has recognized the button click
+    console.log("Task clicked: " + id);
+    if (Status == "In Progress") {
+      var changeStatus = {
+        status: "Overdue"
+      };
+    } else {
+      var changeStatus = {
+        status: "In Progress"
+      };
+    }
+    //puts url in an object to send as a request
+    //the actual ajax call
+    $.ajax("/api/tasks/" + id, {
+      type: "PUT",
+      data: changeStatus
+    }).then(function() {
+      //reload the page after request is sent
+      location.reload();
+    });
+  });
   //This on click function controls the trigger for deleting a users completed projects
   $("#del-completed-projects").on("click", function(event) {
     event.preventDefault();
@@ -122,13 +349,41 @@ $(document).ready(function() {
     });
   });
   //this on click function controls the deletion of a single project from the database
-  $(".fa-trash-alt").on("click", function(event) {
+  $(".project-trash").on("click", function(event) {
     event.preventDefault();
     //gets the id number of the project and assigns it to a variable
     var id = $(this).data("id");
     console.log("Project deleted:" + id);
     //actual ajax call, url includes specific id number of the project
     $.ajax("/api/projects/" + id, {
+      type: "DELETE"
+    }).then(function() {
+      //reload the page after reuqest has been sent
+      location.reload();
+    });
+  });
+  //this on click function controls the deletion of a single project from the database
+  $(".task-trash").on("click", function(event) {
+    event.preventDefault();
+    //gets the id number of the project and assigns it to a variable
+    var id = $(this).data("id");
+    console.log("Task deleted:" + id);
+    //actual ajax call, url includes specific id number of the project
+    $.ajax("/api/tasks/" + id, {
+      type: "DELETE"
+    }).then(function() {
+      //reload the page after reuqest has been sent
+      location.reload();
+    });
+  });
+  //this on click function controls the deletion of a single project from the database
+  $(".comment-trash").on("click", function(event) {
+    event.preventDefault();
+    //gets the id number of the project and assigns it to a variable
+    var id = $(this).data("id");
+    console.log("Comment deleted:" + id);
+    //actual ajax call, url includes specific id number of the project
+    $.ajax("/api/comments/" + id, {
       type: "DELETE"
     }).then(function() {
       //reload the page after reuqest has been sent
