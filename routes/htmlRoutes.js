@@ -75,24 +75,42 @@ module.exports = function(app) {
       res.render("project", hbObject);
     });
   });
-  //This handles the get request for the current users task page
-  app.get("/addtask", isLoggedIn, function(req, res) {
-    //sequelize function to findall off tasks in database where conditions are met
-    db.Task.findAll({}).then(function(dbTask) {
-      //Object to send to the handlebars file
-      var hbObject = {
-        //has all matching task frrom search
-        tasks: dbTask,
-        //current session's user
-        user: req.user
+
+  app.get("/task", isLoggedIn, function(req, res) {
+    db.Task.findAll({
+      where: {
+        userName: req.user.userName
+      }
+    }).then(dbTask => {
+      let hbObject = {
+        user: req.user,
+        tasks: dbTask
       };
-      //console.log for test
-      console.log(hbObject.tasks);
-      console.log(hbObject.user);
-      //renders handlebars project page and gives hbObject to file to handlebars to generate projects and user info
-      res.render("addtask", hbObject);
+
+      res.render("tasks", hbObject);
     });
   });
+
+    //This handles the get request for the current users task page
+    app.get("/addtask", isLoggedIn, function(req, res) {
+      //sequelize function to findall off tasks in database where conditions are met
+      db.Task.findAll({}).then(function(dbTask) {
+        //Object to send to the handlebars file
+        var hbObject = {
+          //has all matching task frrom search
+          tasks: dbTask,
+          //current session's user
+          user: req.user
+        };
+        //console.log for test
+        console.log(hbObject.tasks);
+        console.log(hbObject.user);
+        //renders handlebars project page and gives hbObject to file to handlebars to generate projects and user info
+        res.render("addtask", hbObject);
+      });
+    });
+
+
     //This handles the get request for the current users comment page
     app.get("/addcomment", isLoggedIn, function(req, res) {
       //sequelize function to findall off tasks in database where conditions are met
