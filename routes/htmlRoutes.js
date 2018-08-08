@@ -91,6 +91,21 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/inbox", isLoggedIn, function(req, res) {
+    db.Comment.findAll({
+      where: {
+        touserName: req.user.userName
+      }
+    }).then(dbComment => {
+      let hbObject = {
+        user: req.user,
+        comments: dbComment
+      };
+
+      res.render("inbox", hbObject);
+    });
+  });
+
     //This handles the get request for the current users task page
     app.get("/addtask", isLoggedIn, function(req, res) {
       //sequelize function to findall off tasks in database where conditions are met

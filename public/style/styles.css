@@ -40,7 +40,36 @@ ul{
 .modal-title{
   color: black;
 }
+/*chatbot*/
 
+.figure {
+  position: relative;
+}
+.chatbot {
+  background-color: whitesmoke;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  right:0;
+  margin-top: auto;
+  margin-left: auto;
+  z-index:1;
+  border-radius: 50%;
+  border: 2px #a0bd3e solid;
+  padding: 2px;
+}
+.figcaption {
+  position: absolute;
+  width: 100px;
+  line-height: 100px;
+  left: 0;
+  top: 0;
+  z-index:1;
+  color: black;
+  text-align: center;
+  text-shadow: 0 0 1px white;
+  font-weight:bold;
+}
 
 /* NavBar */
 .bg-primary{

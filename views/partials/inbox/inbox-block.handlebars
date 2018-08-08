@@ -1,0 +1,15 @@
+<li>
+    <div class="search-list">
+        <span class="project-title">
+            <img id="nav-profile-image" src="{{this.dataValues.toImage}}">{{this.dataValues.touserName}} 
+            {{#if this.dataValues.completed}}
+                <i class="far fa-check-circle"> </i>
+            {{else}}
+                <i class="far fa-circle incomplete-task-circle" data-id="{{this.dataValues.id}}"></i>
+            {{/if}}
+                
+            {{this.dataValues.comment}} - {{this.dataValues.taskName}} - from: {{this.dataValues.fromuserName}}
+            <img id="nav-profile-image" src="{{this.dataValues.fromImage}}">
+        </span>
+    </div>
+</li>

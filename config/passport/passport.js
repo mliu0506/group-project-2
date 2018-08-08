@@ -4,8 +4,8 @@ var GoogleStrategy = require("passport-google-oauth2").Strategy;
 // API Access link for creating client ID and secret:
 // https://code.google.com/apis/console/
 var GOOGLE_CLIENT_ID =
-  "159209455972-3076tbg3lauu1sc55ntaccg85oha5c5m.apps.googleusercontent.com";
-GOOGLE_CLIENT_SECRET = "Gq5J6xEu3dLrD24MAErj4PfC";
+  "340545464135-1jgce11ie8bff4t7bovmjn5gc06vb9jj.apps.googleusercontent.com";
+GOOGLE_CLIENT_SECRET = "9ANVuRzPninHJ-NqSJTuOy0b";
 
 module.exports = function(passport, user) {
   //sets the User variable to equal the current user in session
@@ -163,7 +163,7 @@ module.exports = function(passport, user) {
         //Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and lead to lost your session
         //if you use it.
         callbackURL:
-          "https://thawing-scrubland-67334.herokuapp.com/auth/google/callback",
+          "https://damp-everglades-38496.herokuapp.com/auth/google/callback",
         passReqToCallback: true
       },
       function(request, accessToken, refreshToken, profile, done) {

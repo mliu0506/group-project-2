@@ -1,0 +1,11 @@
+<section class="projects float-right col-md-9">
+    {{#unless True}}
+    <div class="all-projects">
+        <h4 class="project-headings">My Inbox</h4>
+        <ul>
+            {{#each comments}} {{> inbox/inbox-block}} {{/each}}
+        </ul>
+    </div>
+    {{/unless}}
+</section>
+       
